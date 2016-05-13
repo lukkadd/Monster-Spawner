@@ -3,13 +3,24 @@ using System.Collections;
 
 public class EnemySpawnerController : MonoBehaviour {
 
-	// Use this for initialization
+	public GameObject enemy;
+	public int health;
+	public int maxEnemies;
+	public float spawnDelay;
+	private int spawnCount = 0;
+
 	void Start () {
-	
+		
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 	
+	}
+
+	void OnTriggerStay(Collider other){
+		if(other.gameObject.CompareTag("Player") && spawnCount < maxEnemies){
+			Instantiate(enemy,transform.position,transform.rotation);
+			spawnCount++;
+		}
 	}
 }
