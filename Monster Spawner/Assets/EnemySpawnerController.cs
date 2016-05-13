@@ -18,8 +18,9 @@ public class EnemySpawnerController : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other){
-		if(other.gameObject.CompareTag("Player") && spawnCount < maxEnemies){
+		if(other.gameObject.CompareTag("Player") && spawnCount < maxEnemies && Time.time > spawnDelay ){
 			Instantiate(enemy,transform.position,transform.rotation);
+			spawnDelay = Time.time + spawnDelay;
 			spawnCount++;
 		}
 	}
