@@ -8,7 +8,6 @@ public class EnemySpawnerController : MonoBehaviour {
 	public int maxEnemies;
 	public float spawnDelay;
 	private float nextSpawn;
-	public int spawnCount = 0;
 
 	void Start () {
 	}
@@ -18,10 +17,9 @@ public class EnemySpawnerController : MonoBehaviour {
 	}
 
 	 void OnTriggerStay (Collider other){
-		if(other.gameObject.CompareTag("Player") && spawnCount < maxEnemies && Time.time > nextSpawn ){
-			GameObject flyingEnemy = (GameObject)Instantiate(enemy,transform.position,transform.rotation);
+		if(other.gameObject.CompareTag("Player") && transform.childCount < maxEnemies && Time.time > nextSpawn ){
+			SpawnEnemy ();
 			nextSpawn = Time.time + spawnDelay;
-			spawnCount++;
 		}
 	}
 
@@ -29,5 +27,10 @@ public class EnemySpawnerController : MonoBehaviour {
 		if(health<=0){
 			Destroy(this.gameObject);
 		}
+	}
+
+	void SpawnEnemy(){
+		GameObject flyingEnemy = Instantiate(enemy,transform.position,transform.rotation) as GameObject;
+		flyingEnemy.transform.parent = transform;
 	}
 }
